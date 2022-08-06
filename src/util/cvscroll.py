@@ -6,6 +6,11 @@ import numpy as np
 import pyautogui
 
 
+mp_drawing = mp.solutions.drawing_utils
+mp_drawing_styles = mp.solutions.drawing_styles
+mp_hands = mp.solutions.hands
+
+
 def draw_circle_on_landmark(landmark, frame, frame_width, frame_height, radius, color, thickness):
     cx, cy = 0, 0
     if type(landmark) == tuple:
@@ -45,7 +50,12 @@ def capture_video(touch_threshold = 50, scroll_speed=8, debug=False):
         if hand_landmarks:
             for hand in hand_landmarks:
                 if debug:
-                    drawing_utils.draw_landmarks(frame, hand)
+                    drawing_utils.draw_landmarks(
+                        frame,
+                        hand,
+                        mp_hands.HAND_CONNECTIONS,
+                        mp_drawing_styles.get_default_hand_landmarks_style(),
+                        mp_drawing_styles.get_default_hand_connections_style())
                 index_tip, thumb_tip = hand.landmark[8], hand.landmark[4]
                 if debug:
                     for fingertip_inx in [8, 4, 12, 16, 20]:
