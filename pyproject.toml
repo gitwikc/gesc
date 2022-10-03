@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "gesc"
+version = "0.1.0"
+description = "Mouse and keyboard shortcuts using hand gestures"
+authors = ["Sattwik Sahu <sahusattwik@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+opencv-python = "^4.6.0"
+PyMsgBox = "1.0.5"
+PyScreeze = "0.1.25"
+PyAutoGUI = "0.9.47"
+mediapipe = "^0.8.11"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+autopep8 = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
