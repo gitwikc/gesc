@@ -20,30 +20,48 @@ class MouseActionHandler:
         """
         if ges_left and not self.left:
             self.left = True
-            if not self.mouse_lock:
-                pyautogui.mouseDown(button='left')
-            else:
-                pyautogui.scroll(-self.scroll_speed)
-        elif ges_middle and not self.middle:
+        if ges_middle and not self.middle:
             self.middle = True
-            if not self.mouse_lock:
-                pyautogui.mouseDown(button='middle')
-            else:
-                pyautogui.scroll(self.scroll_speed)
-        elif ges_right and not self.right:
+        if ges_right and not self.right:
             self.right = True
-            if not self.mouse_lock:
-                pyautogui.mouseDown(button='right')
 
-        if not ges_left and self.left:
-            self.left = False
-            pyautogui.mouseUp(button='left')
-        elif not ges_middle and self.middle:
-            self.middle = False
-            pyautogui.mouseUp(button='middle')
-        elif not ges_right and self.right:
-            self.right = False
-            pyautogui.mouseUp(button='right')
+        if self.left:
+            self.left = ges_left
+        if self.middle:
+            self.middle = ges_middle
+        if self.right:
+            self.right = ges_right
+
+        if not self.mouse_lock:
+            if self.left:
+                pyautogui.mouseDown(button="left")
+            if self.middle:
+                pyautogui.mouseDown(button="middle")
+            if self.right:
+                pyautogui.mouseDown(button="right")
+
+            if not ges_left and self.left:
+                self.left = False
+                pyautogui.mouseUp(button="left")
+            elif not ges_middle and self.middle:
+                self.middle = False
+                pyautogui.mouseUp(button="middle")
+            elif not ges_right and self.right:
+                self.right = False
+                pyautogui.mouseUp(button="right")
+
+        else:
+            # FIX Scroll continuously
+            """
+            Scroll down is -ve
+            Scroll up is +ve
+            """
+            if self.left:
+                pyautogui.scroll(-self.scroll_speed)
+            elif self.right:
+                pyautogui.scroll(self.scroll_speed)
+            elif self.middle:
+                exit(0)
 
     def toggle_mouse_lock(self):
         """
